@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Local content editor for Rufert Concepcion's portfolio." />
+    <title>Content Studio — Rufert Concepcion</title>
+    <script src="supabase-config.js"></script>
+    <script>
+      (() => {
+        try {
+          const config = window.PORTFOLIO_SUPABASE || {};
+          const remote = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(config.url || "") && config.publishableKey && !config.publishableKey.startsWith("YOUR_");
+          if (remote) return;
+          const session = JSON.parse(sessionStorage.getItem("rtcPortfolioAdminSessionV1"));
+          const credentials = JSON.parse(localStorage.getItem("rtcPortfolioOwnerCredentialsV1"));
+          if (!credentials?.salt || !credentials?.hash || !session || session.expiresAt < Date.now()) location.replace("login.html");
+        } catch { location.replace("login.html"); }
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="studio-page auth-pending">
+    <header class="studio-header">
+      <div>
+        <a class="brand" href="index.html">RTC<span>.</span></a>
+        <p class="eyebrow">Portfolio Content Studio</p>
+      </div>
+      <div class="studio-actions">
+        <a class="button button--ghost" href="index.html" target="_blank">Open portfolio ↗</a>
+        <button class="button button--ghost" id="lockStudio" type="button">Lock</button>
+        <button class="button button--primary" id="saveAll" type="button">Save changes</button>
+      </div>
+    </header>
+
+    <main class="studio-shell">
+      <aside class="studio-sidebar">
+        <p class="studio-note"><strong id="storageModeTitle">Content storage</strong><br /><span id="storageModeText">Checking connection...</span></p>
+        <nav aria-label="Editor sections">
+          <a href="#profileEditor">Profile</a>
+          <a href="#skillsEditor">Skills</a>
+          <a href="#projectsEditor">Projects</a>
+          <a href="#dataTools">Backup</a>
+        </nav>
+      </aside>
+
+      <div class="studio-content">
+        <section class="editor-section" id="profileEditor">
+          <div class="section-heading">
+            <div><p class="eyebrow">01 / Identity</p><h1>Profile details</h1></div>
+            <p>Update the copy and contact information shown across the portfolio.</p>
+          </div>
+          <div class="form-grid" id="profileFields"></div>
+        </section>
+
+        <section class="editor-section" id="skillsEditor">
+          <div class="section-heading">
+            <div><p class="eyebrow">02 / Capabilities</p><h2>Skills</h2></div>
+            <p>Use commas to separate individual skills.</p>
+          </div>
+          <div class="skills-editor-grid" id="skillsFields"></div>
+        </section>
+
+        <section class="editor-section" id="projectsEditor">
+          <div class="section-heading">
+            <div><p class="eyebrow">03 / Work</p><h2>Recent projects</h2></div>
+            <p>Add projects anytime. Featured projects receive stronger visual emphasis.</p>
+          </div>
+
+          <form class="project-form" id="projectForm">
+            <input id="projectId" type="hidden" />
+            <label>Project title<input id="projectTitle" required placeholder="e.g. Inventory Management System" /></label>
+            <label>Category<input id="projectCategory" required placeholder="e.g. Web Application" /></label>
+            <label class="field-wide">Short summary<textarea id="projectSummary" required rows="3" placeholder="What problem did the project solve?"></textarea></label>
+            <label class="field-wide">Your contribution<textarea id="projectContribution" rows="2" placeholder="What did you personally design or build?"></textarea></label>
+            <label>Tech stack<input id="projectStack" placeholder="React, Node.js, MySQL" /></label>
+            <label>Image path or URL<input id="projectImage" placeholder="assets/project-preview.png" /></label>
+            <label>Upload project image<input id="projectImageFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif" /></label>
+            <label>Live demo URL<input id="projectDemo" type="url" placeholder="https://..." /></label>
+            <label>Repository URL<input id="projectRepo" type="url" placeholder="https://github.com/..." /></label>
+            <label class="checkbox-field"><input id="projectFeatured" type="checkbox" /> Highlight as a featured project</label>
+            <label class="checkbox-field"><input id="projectPublished" type="checkbox" checked /> Publish this project on the public portfolio</label>
+            <div class="form-buttons field-wide">
+              <button class="button button--primary" type="submit"><span id="projectSubmitLabel">Add project</span></button>
+              <button class="button button--ghost" id="cancelEdit" type="button" hidden>Cancel edit</button>
+            </div>
+          </form>
+
+          <div class="project-admin-list" id="adminProjectList"></div>
+        </section>
+
+        <section class="editor-section" id="dataTools">
+          <div class="section-heading">
+            <div><p class="eyebrow">04 / Safety</p><h2>Backup & restore</h2></div>
+            <p>Export your content as JSON so you can restore it later or move it to another device.</p>
+          </div>
+          <div class="data-actions">
+            <button class="button button--dark" id="exportData" type="button">Export JSON</button>
+            <label class="button button--ghost file-button">Import JSON<input id="importData" type="file" accept="application/json" /></label>
+            <button class="button button--danger" id="resetData" type="button">Reset to starter content</button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="content.js"></script>
+    <script src="supabase-client.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

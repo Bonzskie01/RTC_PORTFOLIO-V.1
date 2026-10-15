@@ -1,0 +1,8 @@
+# Ignore supabase config file
+supabase/migrations/001_portfolio.sql
+
+#Ignore supabase config file example
+supabase-config.example
+
+#Ignore Supabase Guide Setup
+SUPABASE_SETUP

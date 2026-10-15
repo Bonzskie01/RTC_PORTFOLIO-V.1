@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The editable OJT portfolio of Rufert T. Concepcion, featuring development, systems, and design projects.">
+  <meta name="theme-color" content="#f3f1eb">
+  <title>Rufert T. Concepcion — Portfolio Studio</title>
+  <link rel="icon" href="../pre-draft portfolio/rtc logo.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="Home">
+      <span class="wordmark-mark">RTC</span>
+      <span id="navName">Rufert T. Concepcion</span>
+    </a>
+    <nav id="navMenu" aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="menu-button" id="menuButton" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero section" id="top">
+      <div class="hero-copy">
+        <div class="status"><span></span><span id="profileStatus"></span></div>
+        <p class="kicker" id="profileRole"></p>
+        <h1 id="profileHeadline"></h1>
+        <p class="hero-intro" id="profileIntro"></p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#projects">View recent work</a>
+          <a class="button button-plain" id="emailHero" href="#contact">Contact me <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Portrait and profile summary">
+        <div class="portrait-frame"><img id="profilePortrait" alt="Portrait of Rufert T. Concepcion"></div>
+        <div class="floating-note note-one"><strong>Based in</strong><span id="profileLocation"></span></div>
+        <div class="floating-note note-two"><strong>Focus</strong><span>Web · Systems · UI/UX</span></div>
+      </div>
+    </section>
+
+    <section class="marquee" aria-label="Areas of interest">
+      <div>Web Development <span>✦</span> Information Systems <span>✦</span> UI/UX Design <span>✦</span> Technical Support <span>✦</span></div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="section-label"><span>01</span> About</div>
+      <div class="about-grid">
+        <div>
+          <p class="section-kicker">A practical learner</p>
+          <h2>Building a strong foundation through real projects.</h2>
+        </div>
+        <div>
+          <p class="body-large" id="profileAbout"></p>
+          <dl class="profile-facts">
+            <div><dt>Program</dt><dd id="profileCourse"></dd></div>
+            <div><dt>School</dt><dd id="profileSchool"></dd></div>
+            <div><dt>Period</dt><dd id="profilePeriod"></dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="section skills-section" id="skills">
+      <div class="section-label"><span>02</span> Skills</div>
+      <div class="section-heading">
+        <div><p class="section-kicker">Toolkit</p><h2>Skills I use to move projects forward.</h2></div>
+        <p>Organized by the kind of work they support—not by arbitrary percentages.</p>
+      </div>
+      <div class="skills-grid" id="skillsGrid"></div>
+    </section>
+
+    <section class="section projects-section" id="projects">
+      <div class="section-label light"><span>03</span> Projects</div>
+      <div class="section-heading light-heading">
+        <div><p class="section-kicker">Selected work</p><h2>Recent projects and experiments.</h2></div>
+        <p>A growing collection of systems, interfaces, and experiments.</p>
+      </div>
+      <div class="project-toolbar">
+        <div class="filters" id="projectFilters" aria-label="Filter projects"></div>
+        <span id="projectCount"></span>
+      </div>
+      <div class="projects-grid" id="projectsGrid"></div>
+      <div class="empty-state" id="emptyState" hidden>No projects in this category yet.</div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="contact-copy">
+        <div class="section-label"><span>04</span> Contact</div>
+        <p class="section-kicker">Let’s work together</p>
+        <h2>Looking for an OJT intern who is ready to learn?</h2>
+        <p>I would be glad to discuss your organization, the role, and how I can support the team.</p>
+      </div>
+      <div class="contact-card">
+        <a class="contact-email" id="contactEmail" href="#"></a>
+        <div class="contact-links">
+          <a id="contactLinkedin" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a id="contactGithub" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <button class="button button-blue" id="copyEmail" type="button">Copy email address</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>&copy; <span id="year"></span> <span id="footerName"></span></span>
+    <span>Designed for OJT opportunities <a class="owner-access" href="login.html" aria-label="Owner access" title="Owner access">&#128274;</a></span>
+  </footer>
+
+  <template id="skillTemplate">
+    <article class="skill-card"><span class="skill-number"></span><h3></h3><div class="skill-tags"></div></article>
+  </template>
+
+  <template id="projectTemplate">
+    <article class="project-card">
+      <div class="project-media"><img alt=""><div class="project-placeholder"></div><span class="featured-badge">Featured</span></div>
+      <div class="project-content">
+        <div class="project-topline"><span class="project-category"></span><span class="project-index"></span></div>
+        <h3></h3>
+        <p class="project-summary"></p>
+        <p class="project-contribution"></p>
+        <div class="project-stack"></div>
+        <div class="project-links"></div>
+      </div>
+    </article>
+  </template>
+
+  <script src="content.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="supabase-client.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
